@@ -44,9 +44,9 @@ int main(int argc, char *argv[])
     }	// end of time loop n = 1,...,nstep //
 
     //printf ("\n\nIt tooks %14.6e seconds for %d threads to finish\n", barrirer_time, nthreads);
-    printf ("\n\nIt tooks %14.6g nanao-seconds with barrirer \n", barrirer_time/(LOOP*NANO) );
-    printf ("It tooks %14.6g nanao-seconds with no_barrirer\n", no_barrirer_time/(LOOP*NANO));
-    printf ("It tooks %14.6g nanao-seconds barrirer estimate\n", (barrirer_time-no_barrirer_time)/(LOOP*NANO));
+    printf ("\n\nIt tooks %14.6g nano-seconds with barrirer \n", barrirer_time/(LOOP*NANO) );
+    printf ("It tooks %14.6g nano-seconds with no_barrirer\n", no_barrirer_time/(LOOP*NANO));
+    printf ("It tooks %14.6g nano-seconds barrirer estimate\n", (barrirer_time-no_barrirer_time)/(LOOP*NANO));
 
     return 0;
 } // end main() //
