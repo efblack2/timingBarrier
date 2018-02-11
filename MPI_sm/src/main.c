@@ -72,10 +72,10 @@ int main(int argc, char *argv[])
     }	// end of time loop n = 1,...,nstep //
 
     if (mySharedRank == root) {
-        printf ("\n\nBarrirer estimate:  %10.6g, total time with barrirer: %10.6g, total time with no_barrirer, %10.6g nano-seconds \n",
-                  (barrirer_time-no_barrirer_time)/(LOOP*NANO),
-                  barrirer_time/(LOOP*NANO),
-                  no_barrirer_time/(LOOP*NANO)
+        printf ("%10.6g is the Barrirer estimate; %10.6g is total time with barrirer; and %10.6g is the total time with no_barrirer [ nano-seconds] \n",
+                  (barrirer_time-no_barrirer_time)/(max_iterations*NANO),
+                  barrirer_time/(max_iterations*NANO),
+                  no_barrirer_time/(max_iterations*NANO)
         );
     } // end if
 
