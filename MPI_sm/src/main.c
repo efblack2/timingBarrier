@@ -72,9 +72,11 @@ int main(int argc, char *argv[])
     }	// end of time loop n = 1,...,nstep //
 
     if (mySharedRank == root) {
-        printf ("\n\nIt tooks %14.6g nano-seconds with barrirer \n", barrirer_time/(LOOP*NANO) );
-        printf ("It tooks %14.6g nano-seconds with no_barrirer\n", no_barrirer_time/(LOOP*NANO));
-        printf ("It tooks %14.6g nano-seconds barrirer estimate\n", (barrirer_time-no_barrirer_time)/(LOOP*NANO));
+        printf ("\n\nBarrirer estimate:  %10.6g, total time with barrirer: %10.6g, total time with no_barrirer, %10.6g nano-seconds \n",
+                  (barrirer_time-no_barrirer_time)/(LOOP*NANO),
+                  barrirer_time/(LOOP*NANO),
+                  no_barrirer_time/(LOOP*NANO)
+        );
     } // end if
 
     MPI_Finalize();
