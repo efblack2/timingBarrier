@@ -1,0 +1,24 @@
+set style data histograms
+set style histogram rowstacked
+set boxwidth 1 relative
+set style fill solid 1.0 border -1
+#set yrange [0:1.5]
+
+set style line 1 ps 0.5 lc rgb "#ff0000";
+set style line 2 ps 0.5 lc rgb "#ff4f00";
+
+set style line 3 ps 0.4 lc rgb "#0000ff";
+set style line 4 ps 0.4 lc rgb "#0099ff";
+
+set style line 5 ps 0.4 lc rgb "#00ff00";
+set style line 6 ps 0.4 lc rgb "#00ff99";
+
+
+
+set datafile separator " "
+plot 'blackPanther/gnu/result.txt' using 3 title "Timing" ls 2, \
+     'blackPanther/gnu/result.txt' using 2 title "Barrier" ls 4
+
+
+
+# see also: http://ajhaupt.blogspot.com/2010/12/gnuplot-stacked-histograms.html
