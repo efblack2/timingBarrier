@@ -1,25 +1,19 @@
 #!/bin/bash
-if [ "$#" -ne 2 ] 
+if [ "$#" -ne 1 ]
 then
-  echo "Usage: $0 derivativeLoops  compilerResults"
+  echo "Usage: $0  compilerResults"
   exit 1
 fi
 
 nloops=5
-np=`grep -c ^processor /proc/cpuinfo`
 
 rm -f Mpi_sm_Result.txt
-for i in  `seq 1 $np`; do
-
-    for j in  `seq 1 $nloops`; do
-        echo number of processors: $i, run number: $j 
-        mpiexec -n $i ./secondDerivative $1 | grep finish >>  Mpi_sm_Result.txt
-    done
+for j in  `seq 1 $nloops`; do
+    echo run number: $j
+    mpiexec -n 1 ./timingBarrier  | grep Barrirer  >>  Mpi_sm_Result.txt
 done
 
-mkdir -p ../../plots/$(hostname)/$2
-cat Mpi_sm_Result.txt | awk '{}{print $6, $3}{}' | awk '{Prod[$1]++; min[$1]=Prod[$1]==1||min[$1]>$2?$2:min[$1]} END{ for (var in Prod) printf "%s processors: the min is %f\n", var,min[var]}'  | sort -n   > ../../plots/$(hostname)/$2/MPI_sm.txt
-
+mkdir -p ../../plots/$(hostname)/$1
+cat Mpi_sm_Result.txt | awk '{}{print $1 , $6, $13}{}' | sort -n  | head -1  > ../../plots/$(hostname)/$1/MPI_sm.txt
 rm Mpi_sm_Result.txt
-#rm RunHistory.dat
 
