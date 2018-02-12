@@ -15,19 +15,45 @@ set style line 4 ps 0.4 lc rgb "#0099ff";
 set style line 5 ps 0.4 lc rgb "#00ff00";
 set style line 6 ps 0.4 lc rgb "#00ff99";
 
-set key top right box
-set grid
 
-set xlabel "Number of Processors/Threads"
-set ylabel "Time [S]"
+
 
 set title machine
 #set label "" at screen 0.5, 0.9 center font "Arial,11"
-set label "Share Memory Performance Comparison" at graph 0.5, 1.035 center font "Arial,11"
+set label "Barrier Comparison" at graph 0.5, 1.035 center font "Arial,11"
 
-plot machine.'/gnu/MPI_sm.txt'   using 1:6 title "Gnu MPI_{sm}"   with linespoints ls 1,\
-     machine.'/gnu/OpenMP.txt'   using 1:6 title "Gnu OpenMP"     with linespoints ls 2
-#     ,\
+
+# Define plot style 'stacked histogram'
+# with additional settings
+set style data histogram
+set style histogram rowstacked
+set style fill solid border -1
+set boxwidth 0.75
+
+set ylabel "Time [nano-seconds]"
+#set key top right box
+#set grid
+
+# We are plotting columns 2, 3 and 4 as y-values,
+# the x-ticks are coming from column 1
+
+unset xtic
+set label "Gnu-MPI"    at graph 0.14, -0.03 center font "Arial,11"
+set label "Gnu-OpenMP" at graph 0.29, -0.03 center font "Arial,11"
+
+set label "Intel-MPI"    at graph 0.425, -0.03 center font "Arial,11"
+set label "Intel-OpenMP" at graph 0.57, -0.03 center font "Arial,11"
+
+set label "Pgi-MPI"    at graph 0.71, -0.03 center font "Arial,11"
+set label "Pgi-OpenMP" at graph 0.85, -0.03 center font "Arial,11"
+
+plot [-1:6] machine.'/results.txt'   using 2 title "Timing"  ls 2, \
+            machine.'/results.txt'   using 1 title "Barrier" ls 4
+
+
+#plot machine.'/gnu/MPI_sm.txt'   using 1:6 title "Gnu MPI_{sm}"   with linespoints ls 1,\
+#     machine.'/gnu/OpenMP.txt'   using 1:6 title "Gnu OpenMP"     with linespoints ls 2,\
+#     
 #     machine.'/intel/MPI_sm.txt' using 1:6 title "Intel MPI_{sm}" with linespoints ls 3,\
 #     machine.'/intel/OpenMP.txt' using 1:6 title "Intel OpenMP"   with linespoints ls 4,\
 #     machine.'/pgi/MPI_sm.txt'   using 1:6 title "Pgi MPI_{sm}"   with linespoints ls 5,\
