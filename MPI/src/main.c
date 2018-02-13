@@ -16,15 +16,12 @@ int main(int argc, char *argv[])
     int provided;
     MPI_Init_thread(&argc, &argv, MPI_THREAD_SINGLE, &provided);
 
-    MPI_Comm sm_comm;
-    MPI_Comm_split_type(MPI_COMM_WORLD,MPI_COMM_TYPE_SHARED, 0,MPI_INFO_NULL, &sm_comm);
+    int rank,size;
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    MPI_Comm_size(MPI_COMM_WORLD,&size);
 
-    int mySharedRank,sharedSize;
-    MPI_Comm_rank(sm_comm,&mySharedRank);
-    MPI_Comm_size(sm_comm,&sharedSize);
-
-    if (sharedSize>1) {
-        if (mySharedRank == root) printf("Please, run using only one processor.\nBye....\n");
+    if (size>1) {
+        if (rank == root) printf("Please, run using only one processor.\nBye....\n");
         MPI_Finalize();
         exit(0);
     } // end if //
@@ -34,7 +31,7 @@ int main(int argc, char *argv[])
         max_iterations=atoi(argv[1]);
     } // end if //
 
-    if (mySharedRank == root) {
+    if (rank == root) {
         printf("Running %d iterations \n",max_iterations);fflush(stdout);
     } // end if
 
@@ -45,7 +42,7 @@ int main(int argc, char *argv[])
 
         gettimeofday(&tp,NULL);
         elapsed_time = -(tp.tv_sec + tp.tv_usec/1.0e6);
-        MPI_Barrier(sm_comm);
+        MPI_Barrier(MPI_COMM_WORLD);
         gettimeofday(&tp,NULL);
         elapsed_time += (tp.tv_sec + tp.tv_usec/1.0e6);
         barrirer_time+=elapsed_time;
@@ -71,7 +68,7 @@ int main(int argc, char *argv[])
 
     }	// end of time loop n = 1,...,nstep //
 
-    if (mySharedRank == root) {
+    if (rank == root) {
         printf ("%10.6g is the Barrirer estimate; %10.6g is total time with barrirer; and %10.6g is the total time with no_barrirer [ nano-seconds] \n",
                   (barrirer_time-no_barrirer_time)/(max_iterations*NANO),
                   barrirer_time/(max_iterations*NANO),
