@@ -13,17 +13,12 @@ set(CMAKE_BUILD_TYPE Release)
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU" )
     #MESSAGE( STATUS "                     yes, the compiler is: "            ${CMAKE_C_COMPILER_ID} )
     set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wextra  -ftree-vectorize -fopt-info-vec-optimized -ffast-math -mavx2 ")
-    set(CMAKE_EXE_LINKER_FLAGS "-lm" )
 elseif ( CMAKE_C_COMPILER_ID STREQUAL "Intel" )
     set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -qopt-report=3 -qopt-report-phase=vec -xCORE-AVX2")
 elseif ( CMAKE_C_COMPILER_ID STREQUAL "PGI" )
     set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Minform=inform -Minfo=all -Mvect=simd -DPGI")
 endif ( )
 ## end of the following lines mainly contain flags I have not found in CMake
-
-#if (DOUBLE_PRECISION)
-#    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -DDOUBLE")
-#endif()
 
 find_package(OpenMP REQUIRED)
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
