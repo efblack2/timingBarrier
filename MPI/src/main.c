@@ -6,7 +6,7 @@
 #include <mpi.h>
 
 #define BILLION 1000000000L
-#define LOOP 100000000L
+#define LOOP 10000000L
 
 
 int main(int argc, char *argv[])
@@ -23,15 +23,8 @@ int main(int argc, char *argv[])
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
 
-    if (size>1) {
-        if (rank == root) printf("Please, run using only one processor.\nBye....\n");
-        MPI_Finalize();
-        exit(0);
-    } // end if //
-
 
     if (argc > 1 ) {
-        max_iterations=atoi(argv[1]);
         max_iterations= (uint64_t) atoi(argv[1]);
     } // end if //
 
@@ -40,22 +33,39 @@ int main(int argc, char *argv[])
     } // end if
 
 
-    for (uint64_t n=1 ; n<=max_iterations; ++n) {
+    for (uint64_t n=0 ; n<max_iterations; ++n) {
+    
+        MPI_Barrier(MPI_COMM_WORLD);
         clock_gettime(CLOCK_MONOTONIC, &start);
         MPI_Barrier(MPI_COMM_WORLD);
         clock_gettime(CLOCK_MONOTONIC, &end);
         diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
         barrirer_time+=diff;
 
+
+
+        MPI_Barrier(MPI_COMM_WORLD);
         clock_gettime(CLOCK_MONOTONIC, &start);
         // no barrirer here
         clock_gettime(CLOCK_MONOTONIC, &end);
         diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
         no_barrirer_time+=diff;
         
-    }	// end of time loop n = 1,...,nstep //
+    }	// end for //
+    
+    //printf("I am %d out of %d,  my barrirer_time: %lu, my no_barrirer_time: %lu\n",rank, size,barrirer_time,no_barrirer_time);
+    
+    MPI_Allreduce( MPI_IN_PLACE, &barrirer_time,    1, MPI_UNSIGNED_LONG, MPI_SUM,MPI_COMM_WORLD );
+    MPI_Allreduce( MPI_IN_PLACE, &no_barrirer_time, 1, MPI_UNSIGNED_LONG, MPI_SUM,MPI_COMM_WORLD );
 
+
+    
     if (rank == root) {
+        barrirer_time = barrirer_time / size;
+        no_barrirer_time = no_barrirer_time / size;
+        //printf("mean my barrirer_time: %lu, mean my no_barrirer_time: %lu\n", barrirer_time, no_barrirer_time);
+
+        printf("Number of processors: %d\n", size);
         printf ("%lu is the Barrirer estimate; %lu is total time with barrirer; and %lu is the total time with no_barrirer [ nano-seconds] \n",
                   (barrirer_time-no_barrirer_time)/(max_iterations),
                   barrirer_time/(max_iterations),
