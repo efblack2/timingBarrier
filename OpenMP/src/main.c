@@ -80,12 +80,12 @@ int main(int argc, char *argv[])
         }	// end for//
     } // end of parallel region //
     
-    printf("Number of threads: %d\n", size);
-    printf ("%lu is the Barrirer estimate; %lu is total time with barrirer; and %lu is the total time with no_barrirer [ nano-seconds] \n",
+    printf ("%lu is the Barrirer estimate; %lu is total time with barrirer; and %lu is the total time with no_barrirer [ nano-seconds]",
               (barrirer_time-no_barrirer_time)/(max_iterations),
               barrirer_time/(max_iterations),
               no_barrirer_time/(max_iterations)
     );
+    printf(", number of threads: %d\n", size);
 
     free(diff);
 
