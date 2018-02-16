@@ -17,6 +17,6 @@ for i in  `seq 1 $np`; do
 done
 
 mkdir -p ../../plots/$(hostname)/$1
-cat Mpi_Result.txt | awk '{}{print $25, $1, $6, $13 }{}' | sort -n  | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/Mpi.txt
+cat Mpi_Result.txt | awk '{}{print $25, $1, $6, $13 }{}' | sort -n -k2 | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/Mpi.txt
 rm Mpi_Result.txt
 

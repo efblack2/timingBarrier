@@ -20,7 +20,7 @@ done
 mkdir -p ../../plots/$(hostname)/$1
 
      
-cat OpenMp_Result.txt |  awk '{}{print $25, $1, $6, $13 }{}' | sort -n  | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/OpenMP.txt
+cat OpenMp_Result.txt |  awk '{}{print $25, $1, $6, $13 }{}' | sort -n -k2 | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/OpenMP.txt
 
 rm OpenMp_Result.txt
 
