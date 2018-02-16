@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
         MPI_Barrier(MPI_COMM_WORLD);
         clock_gettime(CLOCK_MONOTONIC, &end);
         diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+        MPI_Allreduce( MPI_IN_PLACE, &diff, 1, MPI_UNSIGNED_LONG, MPI_MIN,MPI_COMM_WORLD );
         barrirer_time+=diff;
-
 
 
         MPI_Barrier(MPI_COMM_WORLD);
@@ -49,22 +49,13 @@ int main(int argc, char *argv[])
         // no barrirer here
         clock_gettime(CLOCK_MONOTONIC, &end);
         diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+        MPI_Allreduce( MPI_IN_PLACE, &diff, 1, MPI_UNSIGNED_LONG, MPI_MIN,MPI_COMM_WORLD );
         no_barrirer_time+=diff;
         
     }	// end for //
     
-    //printf("I am %d out of %d,  my barrirer_time: %lu, my no_barrirer_time: %lu\n",rank, size,barrirer_time,no_barrirer_time);
-    
-    MPI_Allreduce( MPI_IN_PLACE, &barrirer_time,    1, MPI_UNSIGNED_LONG, MPI_SUM,MPI_COMM_WORLD );
-    MPI_Allreduce( MPI_IN_PLACE, &no_barrirer_time, 1, MPI_UNSIGNED_LONG, MPI_SUM,MPI_COMM_WORLD );
-
-
     
     if (rank == root) {
-        barrirer_time = barrirer_time / size;
-        no_barrirer_time = no_barrirer_time / size;
-        //printf("mean my barrirer_time: %lu, mean my no_barrirer_time: %lu\n", barrirer_time, no_barrirer_time);
-
         printf("Number of processors: %d\n", size);
         printf ("%lu is the Barrirer estimate; %lu is total time with barrirer; and %lu is the total time with no_barrirer [ nano-seconds] \n",
                   (barrirer_time-no_barrirer_time)/(max_iterations),
