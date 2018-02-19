@@ -1,27 +1,25 @@
 #!/bin/bash
-if [ "$#" -ne 2 ] 
+if [ "$#" -ne 1 ]
 then
-  echo "Usage: $0 inputFile compiler"
+  echo "Usage: $0  compilerResults"
   exit 1
 fi
-
 nloops=5
-np=`grep -c ^processor /proc/cpuinfo`
-np=$(($np/2))     # for running it in one socket only
-npm1=$(($np-1))  # This could be wrong. Adjust this number 
-                 # for the particular machine you are using
+#np=`grep -c ^processor /proc/cpuinfo`
+np=8
 
-rm -f Mpi_sm_Result.txt
+rm -f Mpi_Result.txt
 for i in  `seq 1 $np`; do
+    npm1=$(($i-1))
     for j in  `seq 1 $nloops`; do
-        echo number of processors: $i, run number: $j 
-        mpiexec -n $i taskset -c 0-$npm1 p6 $1 | grep finish >>  Mpi_sm_Result.txt
+        echo Number of processors: $i,  run number: $j, taskset 0-$npm1 
+        mpiexec -n $i  taskset -c 0-$npm1 ./timingBarrier  | grep Barrirer  >>  Mpi_Result.txt
     done
 done
 
-mkdir -p ../../../plots/PureShareMemory/$(hostname)/$2
-cat Mpi_sm_Result.txt | awk '{}{print $6, $3}{}' | awk '{Prod[$1]++; min[$1]=Prod[$1]==1||min[$1]>$2?$2:min[$1]} END{ for (var in Prod) printf "%s processors: the min is %f\n", var,min[var]}'  | sort -n   > ../../../plots/PureShareMemory/$(hostname)/$2/p6_MPI_sm.txt
+mkdir -p ../../plots/$(hostname)/$1
 
-rm Mpi_sm_Result.txt
-#rm RunHistory.dat
+cat Mpi_Result.txt | awk '{}{print $25, $1, $6, $13 }{}' |  sort  -k1,1n -k2,2n  | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/Mpi_Pin.txt
+
+rm Mpi_Result.txt
 
