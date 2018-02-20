@@ -19,7 +19,7 @@ set key top left box
 set grid
 
 set xlabel "Number of Processors/Threads"
-set ylabel "Time [S]"
+set ylabel "Time [ns]"
 
 set title machine
 #set label "" at screen 0.5, 0.9 center font "Arial,11"
@@ -32,5 +32,4 @@ plot[0:][0:] machine.'/gnu/Mpi.txt'      using 1:2 title "Gnu MPI"      with lin
              machine.'/intel/OpenMP.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
              machine.'/pgi/Mpi.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
              machine.'/pgi/OpenMP.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
-             
 

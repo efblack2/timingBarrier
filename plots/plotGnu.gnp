@@ -19,7 +19,7 @@ set key top left box
 set grid
 
 set xlabel "Number of Processors/Threads"
-set ylabel "Time [S]"
+set ylabel "Time [ns]"
 
 set title machine
 #set label "" at screen 0.5, 0.9 center font "Arial,11"
