@@ -21,7 +21,7 @@ set grid
 set xlabel "Number of Processors/Threads"
 set ylabel "Time [ns]"
 
-set title machine
+set title machine." + taskset"
 #set label "" at screen 0.5, 0.9 center font "Arial,11"
 set label "Barrier Comparison" at graph 0.5, 1.035 center font "Arial,11"
 

@@ -22,5 +22,8 @@ cd ../..
 
 gnuplot -c plot.gnp $1
 gnuplot -c plot_Pin.gnp $1
+gnuplot -c plotGnu.gnp $1
+gnuplot -c plotGnu_Pin.gnp $1
+
 
 rm `find . -name result*.txt`
