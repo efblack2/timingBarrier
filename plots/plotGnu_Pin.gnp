@@ -5,7 +5,7 @@
 machine=ARG1
 
 set terminal pdf enhanced
-set output machine."_pin.pdf"
+set output machine."_GnuPin.pdf"
 
 set style line 1 dt 1 ps 0.6 lc rgb "#ff0000";
 set style line 2 dt 4 ps 0.5 lc rgb "#ff4f00";
@@ -28,9 +28,5 @@ set label "Barrier Comparison" at graph 0.5, 1.035 center font "Arial,11"
 
 
 plot[0:][0:] machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
-             machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2,\
-             machine.'/intel/Mpi_Pin.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
-             machine.'/intel/OpenMP_Pin.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
-             machine.'/pgi/Mpi_Pin.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
-             machine.'/pgi/OpenMP_Pin.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
-
+             machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2
+             
