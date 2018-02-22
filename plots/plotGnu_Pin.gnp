@@ -3,6 +3,7 @@
 # gnuplot -c plotGnu.gnp stout
 #
 machine=ARG1
+yLimit=ARG2
 
 set terminal pdf enhanced
 set output machine."_GnuPin.pdf"
@@ -27,6 +28,12 @@ set title machine." + taskset"
 set label "Barrier Comparison" at graph 0.5, 1.035 center font "Arial,11"
 
 
-plot[0:][0:] machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
-             machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2
-             
+if (yLimit > 0) {
+    plot[0:][0:yLimit] \
+        machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
+        machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2
+} else {
+    plot[0:][0:] \
+        machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
+        machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2
+}                          
