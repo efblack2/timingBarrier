@@ -5,6 +5,9 @@
 machine=ARG1
 yLimit=ARG2
 
+#set print "-"           # to send prints to stdout
+#print 'hello world'     # to actually print
+
 set terminal pdf enhanced
 set output machine."_pin.pdf"
 
@@ -28,20 +31,19 @@ set title machine." + taskset"
 set label "Barrier Comparison" at graph 0.5, 1.035 center font "Arial,11"
 
 if (yLimit > 0) {
-
-        plot[0:][0:yLimit] \
-        machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
-        machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2,\
-        machine.'/intel/Mpi_Pin.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
-        machine.'/intel/OpenMP_Pin.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
-        machine.'/pgi/Mpi_Pin.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
-        machine.'/pgi/OpenMP_Pin.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
+    plot[0:][0:yLimit] \
+    machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
+    machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2,\
+    machine.'/intel/Mpi_Pin.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
+    machine.'/intel/OpenMP_Pin.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
+    machine.'/pgi/Mpi_Pin.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
+    machine.'/pgi/OpenMP_Pin.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
 } else {
-        plot[0:][0:] \
-        machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
-        machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2,\
-        machine.'/intel/Mpi_Pin.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
-        machine.'/intel/OpenMP_Pin.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
-        machine.'/pgi/Mpi_Pin.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
-        machine.'/pgi/OpenMP_Pin.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
+    plot[0:][0:] \
+    machine.'/gnu/Mpi_Pin.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
+    machine.'/gnu/OpenMP_Pin.txt'   using 1:2 title "Gnu OpenMP"   with linespoints ls 2,\
+    machine.'/intel/Mpi_Pin.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
+    machine.'/intel/OpenMP_Pin.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
+    machine.'/pgi/Mpi_Pin.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
+    machine.'/pgi/OpenMP_Pin.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
 }

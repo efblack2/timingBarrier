@@ -8,7 +8,6 @@ yLimit=ARG2
 #set print "-"           # to send prints to stdout
 #print 'hello world'     # to actually print
 
-
 set terminal pdf enhanced
 set output machine.".pdf"
 
