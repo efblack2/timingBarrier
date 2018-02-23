@@ -19,5 +19,3 @@ mv $1_Gnu.pdf temp.pdf
 pdfunite temp.pdf $1_GnuPin.pdf $1_Gnu.pdf
 rm  temp.pdf $1_GnuPin.pdf
 
-
-rm `find . -name result*.txt`
