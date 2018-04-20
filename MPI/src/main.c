@@ -6,7 +6,8 @@
 #include <mpi.h>
 
 #define BILLION 1000000000L
-#define LOOP 10000000L
+//#define LOOP 10000000L
+#define LOOP 100000L
 
 
 int main(int argc, char *argv[])
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
 
         MPI_Barrier(MPI_COMM_WORLD);
         clock_gettime(CLOCK_MONOTONIC, &start);
-        // no barrirer here
+        // no barrier here
         clock_gettime(CLOCK_MONOTONIC, &end);
         diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
         MPI_Allreduce( MPI_IN_PLACE, &diff, 1, MPI_UNSIGNED_LONG, MPI_MIN,MPI_COMM_WORLD );
@@ -56,12 +57,12 @@ int main(int argc, char *argv[])
     
     
     if (rank == root) {
-        printf ("%lu is the Barrirer estimate; %lu is total time with barrirer; and %lu is the total time with no_barrirer [ nano-seconds]",
+        printf ("%lu is the Barrier estimate; %lu is total time with barrier; and %lu is the total time with no_barrier [ nano-seconds]",
                   (barrirer_time-no_barrirer_time)/(max_iterations),
                   barrirer_time/(max_iterations),
                   no_barrirer_time/(max_iterations)
         );
-        printf(", number of threads: %d\n", size);
+        printf(", number of processes: %d\n", size);
     } // end if
 
     MPI_Finalize();

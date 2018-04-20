@@ -6,7 +6,8 @@
 #include <omp.h>
 
 #define BILLION 1000000000L
-#define LOOP 10000000L
+//#define LOOP 10000000L
+#define LOOP 100000L
 
 int main(int argc, char *argv[])
 {
