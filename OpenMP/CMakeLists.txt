@@ -14,9 +14,9 @@ if (CMAKE_C_COMPILER_ID STREQUAL "GNU" )
     #MESSAGE( STATUS "                     yes, the compiler is: "            ${CMAKE_C_COMPILER_ID} )
     set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wextra  -ftree-vectorize -fopt-info-vec-optimized -ffast-math -mavx2 ")
 elseif ( CMAKE_C_COMPILER_ID STREQUAL "Intel" )
-    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -qopt-report=3 -qopt-report-phase=vec -xCORE-AVX2")
+    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -D_POSIX_C_SOURCE=199309L -Wall -qopt-report=3 -qopt-report-phase=vec -xCORE-AVX2 ")
 elseif ( CMAKE_C_COMPILER_ID STREQUAL "PGI" )
-    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Minform=inform -Minfo=all -Mvect=simd -DPGI")
+    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Minform=inform -Minfo=all -Mvect=simd ")
 endif ( )
 ## end of the following lines mainly contain flags I have not found in CMake
 
