@@ -4,7 +4,7 @@ then
   echo "Usage: $0  compilerResults"
   exit 1
 fi
-nloops=2
+nloops=4
 
 # Determining MPI implementation and binding options #
 MPI=`mpiexec --version | head -1 | awk '{print $1}' ` 
@@ -34,9 +34,6 @@ if [ -n "$PGI" ]; then
     echo "Pgi Compiler"
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
-    #np=15
-    #npps="$(($np / $numaNodes))"
-    #npm1="$(($np - 1))"
 else
     echo "Gnu Compiler"
 fi

@@ -4,7 +4,7 @@ then
   echo "Usage: $0 compilerResults"
   exit 1
 fi
-nloops=2
+nloops=4
 
 npt=`grep -c ^processor /proc/cpuinfo`
 numaNodes=`lscpu | grep "NUMA node(s):" | awk '{}{print $3}{}'`
@@ -48,9 +48,6 @@ if [ -n "$PGI" ]; then
     echo $MP_BLIST
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
-    #np=15
-    #npps="$(($np / $numaNodes))"
-    #npm1="$(($np - 1))"
     export OMP_PROC_BIND=spread
     export OMP_PLACES=cores
     #export KMP_AFFINITY=scatter
