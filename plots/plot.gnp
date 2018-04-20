@@ -20,7 +20,7 @@ set style line 4 dt 4 ps 0.5 lc rgb "#0099ff";
 set style line 5 dt 1 ps 0.6 lc rgb "#00ff00";
 set style line 6 dt 4 ps 0.5 lc rgb "#00ff99";
 
-set key top left box
+set key top left nobox
 set grid
 
 set xlabel "Number of Processors/Threads"
@@ -37,7 +37,7 @@ if (yLimit > 0) {
     machine.'/intel/Mpi.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
     machine.'/intel/OpenMP.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
     machine.'/pgi/Mpi.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
-    machine.'/pgi/OpenMP.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
+    machine.'/pgi/OpenMP.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6
 } else {
     plot[0:][0:] \
     machine.'/gnu/Mpi.txt'      using 1:2 title "Gnu MPI"      with linespoints ls 1,\
@@ -45,5 +45,5 @@ if (yLimit > 0) {
     machine.'/intel/Mpi.txt'    using 1:2 title "Intel MPI"    with linespoints ls 3, \
     machine.'/intel/OpenMP.txt' using 1:2 title "Intel OpenMP" with linespoints ls 4,\
     machine.'/pgi/Mpi.txt'      using 1:2 title "Pgi MPI"      with linespoints ls 5, \
-    machine.'/pgi/OpenMP.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6,\
+    machine.'/pgi/OpenMP.txt'   using 1:2 title "Pgi OpenMP"   with linespoints ls 6
 }
