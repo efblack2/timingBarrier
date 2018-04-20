@@ -1,20 +1,20 @@
 #!/bin/bash
 
 
-mkdir -p  MPI_Sync/buildGnu
+mkdir -p  MPI/buildGnu
 mkdir -p  OpenMP/buildGnu
 
-mkdir -p  MPI_Sync/buildIntel
+mkdir -p  MPI/buildIntel
 mkdir -p  OpenMP/buildIntel
 
-mkdir -p  MPI_Sync/buildPgi
+mkdir -p  MPI/buildPgi
 mkdir -p  OpenMP/buildPgi
 
 
 
 cd OpenMP/buildGnu
 cmake .. ; make clean; make
-cd ../../MPI_Sync/buildGnu
+cd ../../MPI/buildGnu
 cmake .. ; make clean; make
 cd ../../
 
@@ -26,7 +26,7 @@ source setImpi
 
 cd OpenMP/buildIntel
 cmake .. ; make clean; make
-cd ../../MPI_Sync/buildIntel
+cd ../../MPI/buildIntel
 cmake .. ; make clean; make
 cd ../../
 
@@ -37,7 +37,7 @@ source setPgiMpi 18.3
 
 cd OpenMP/buildPgi
 cmake .. ; make clean; make
-cd ../../MPI_Sync/buildPgi
+cd ../../MPI/buildPgi
 cmake .. ; make clean; make
 cd ../../
 

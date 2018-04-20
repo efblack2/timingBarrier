@@ -2,7 +2,7 @@
 
 cd OpenMP/
 rm -rf buildGnu  buildIntel  buildPgi
-cd ../MPI_Sync/
+cd ../MPI/
 rm -rf buildGnu  buildIntel  buildPgi
 cd ..
 
