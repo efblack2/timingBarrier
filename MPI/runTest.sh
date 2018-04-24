@@ -7,7 +7,7 @@ fi
 nloops=4
 
 # Determining MPI implementation and binding options #
-MPI=`mpiexec --version | head -1 | awk '{print $1}' ` 
+MPI=`mpiexec --version | head -1 | awk '{print $1}' `
 
 if [ "$MPI" == "HYDRA" ]; then
     echo "MPICH"
@@ -42,7 +42,7 @@ rm -f Mpi_Result.txt
 for i in  `seq 1 $np`; do
     for j in  `seq 1 $nloops`; do
         echo Number of processors: $i,  run number: $j
-        mpiexec -n $i ./timingBarrier  | grep Barrirer  >>  Mpi_Result.txt
+        mpiexec -n $i ./timingBarrier  | grep Barrier  >>  Mpi_Result.txt
     done
 done
 
