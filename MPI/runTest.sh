@@ -18,7 +18,7 @@ elif [ "$MPI" == "Intel(R)" ]; then
     bindings="-genv I_MPI_PIN_DOMAIN=core -genv I_MPI_PIN_ORDER=spread -genv I_MPI_DEBUG=4"
 elif [ "$MPI" == "mpiexec" ]; then
     echo "open-mpi"
-    bindings="--bind-to core --map-by socket --report-bindings"
+    bindings="--bind-to socket --map-by socket --report-bindings"
 fi
 # end of Determining MPI implementation and binding options #
 
