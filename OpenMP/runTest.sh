@@ -73,7 +73,10 @@ done
 mkdir -p ../../plots/$(hostname)/$1
 
 
-cat OpenMp_Result.txt |  awk '{}{print $25, $1, $6, $13 }{}' | sort  -k1,1n -k2,2n   | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/OpenMP.txt
+cat OpenMp_Result.txt |  awk '{}{print $25, $1, $6, $13 }{}' | sort  -k1,1n -k2,2n  | awk 'BEGIN{ prev=-1} { if ($1 != prev) { print $0; prev=$1}  } END{}' > ../../plots/$(hostname)/$1/OpenMP.txt
+
+cat OpenMp_Result.txt |  awk '{}{print $25, $1, $6, $13 }{}' | sort  -k1,1n -k2,2n | awk 'BEGIN{ minF=-1;maxF=-1;min=-1;max-=1} { if ($1 != minF) { if (maxF != -1) { printf("%d %.2f %.2f\n", proc, (max+min)/2, (max-min)/2);} min=$2;proc=$1;minF=$1;maxF=1;}max=$2} END{printf("%d %.2f %.2f\n", proc, (max+min)/2, (max-min)/2);}' > ../../plots/$(hostname)/$1/OpenMPError.txt
+
 
 rm OpenMp_Result.txt
 
