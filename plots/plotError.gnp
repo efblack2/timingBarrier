@@ -1,0 +1,49 @@
+#!/usr/bin/gnuplot
+# call it as:
+# gnuplot -c plot.gnp stout
+#
+machine=ARG1
+yLimit=ARG2
+
+#set print "-"           # to send prints to stdout
+#print 'hello world'     # to actually print
+
+set terminal pdf enhanced
+set output machine."Error.pdf"
+
+set style line 1 dt 1 ps 0.6 lc rgb "#ff0000";
+set style line 2 dt 4 ps 0.5 lc rgb "#ff4f00";
+
+set style line 3 dt 1 ps 0.6 lc rgb "#0000ff";
+set style line 4 dt 4 ps 0.5 lc rgb "#0099ff";
+
+set style line 5 dt 1 ps 0.6 lc rgb "#00ff00";
+set style line 6 dt 4 ps 0.5 lc rgb "#00ff99";
+
+set key top left nobox
+set grid
+
+set xlabel "Number of Processors/Threads"
+set ylabel "Time [ns]"
+
+set title machine
+#set label "" at screen 0.5, 0.9 center font "Arial,11"
+set label "Barrier Comparison" at graph 0.5, 1.035 center font "Arial,11"
+
+if (yLimit > 0) {
+    plot[0:][0:yLimit] \
+    machine.'/gnu/MpiError.txt'     title "Gnu MPI"      with errorbars ls 1,\
+    machine.'/gnu/OpenMPError.txt'  title "Gnu OpenMP"   with errorbars ls 2,\
+    machine.'/intel/MpiError.txt'   title "Intel MPI"    with errorbars ls 3, \
+    machine.'/intel/OpenMPError.txt'title "Intel OpenMP" with errorbars ls 4,\
+    machine.'/pgi/MpiError.txt'     title "Pgi MPI"      with errorbars ls 5, \
+    machine.'/pgi/OpenMPError.txt'  title "Pgi OpenMP"   with errorbars ls 6
+} else {
+    plot[0:][0:] \
+    machine.'/gnu/MpiError.txt'     title "Gnu MPI"      with errorbars ls 1,\
+    machine.'/gnu/OpenMPError.txt'  title "Gnu OpenMP"   with errorbars ls 2,\
+    machine.'/intel/MpiError.txt'   title "Intel MPI"    with errorbars ls 3, \
+    machine.'/intel/OpenMPError.txt'title "Intel OpenMP" with errorbars ls 4,\
+    machine.'/pgi/MpiError.txt'     title "Pgi MPI"      with errorbars ls 5, \
+    machine.'/pgi/OpenMPError.txt'  title "Pgi OpenMP"   with errorbars ls 6
+}

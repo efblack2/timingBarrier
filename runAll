@@ -7,14 +7,6 @@ cd ../../MPI/buildGnu/
 make clean; make -j;
 ../runTest.sh gnu
 
-#cd ../../MPI_sync/buildGnu/
-##make clean; make -j;
-#../runTest.sh gnu
-
-#cd ../../MPI_fence/buildGnu/
-##make clean; make -j;
-#../runTest.sh gnu
-
 
 cd ../../
 source setIcc intel64; source setImpi
@@ -25,13 +17,6 @@ make clean; make -j;
 cd ../../MPI/buildIntel/
 make clean; make -j;
 ../runTest.sh intel
-
-#cd ../../MPI_sync/buildIntel/
-##make clean; make -j;
-#../runTest.sh intel
-#cd ../../MPI_fence/buildIntel/
-##make clean; make -j;
-#../runTest.sh intel
 
 
 cd ../../
@@ -44,11 +29,4 @@ cd ../../MPI/buildPgi/
 make clean; make -j;
 ../runTest.sh pgi
 
-#cd ../../MPI_sync/buildPgi/
-##make clean; make -j;
-#../runTest.sh pgi
-
-#cd ../../MPI_fence/buildPgi/
-##make clean; make -j;
-#../runTest.sh pgi
 
